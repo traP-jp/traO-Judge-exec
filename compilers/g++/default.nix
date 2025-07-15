@@ -17,10 +17,12 @@ in
     traojudge = {
       languages = [
         {
-          binName = "g++";
-          compile = cfg: "${gxxScript}/bin/g++ -std=c++23 -o ${cfg.out} ${cfg.src}";
-          name = "C++(g++)";
-          run = cfg: "exec ${cfg.out}";
+          main = {
+            binName = "g++";
+            compile = cfg: "${gxxScript}/bin/g++ -std=c++23 -o ${cfg.out} ${cfg.src}";
+            name = "C++(g++)";
+            run = cfg: "exec ${cfg.out}";
+          };
         }
       ];
     };

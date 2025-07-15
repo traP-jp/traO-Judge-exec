@@ -15,6 +15,7 @@ in
     traojudge = {
       languages = [
         {
+          main = {
           binName = "java";
           compile = cfg: ''
             ln -s ${cfg.src} ${cfg.out}/Main.java
@@ -22,6 +23,7 @@ in
           '';
           name = "Java";
           run = cfg: "${openjdk}/bin/java ${cfg.out}/Main";
+          };
         }
       ];
     };

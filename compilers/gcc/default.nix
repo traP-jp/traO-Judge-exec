@@ -8,10 +8,12 @@ in
     traojudge = {
       languages = [
         {
+          main = {
           binName = "gcc";
-          compile = cfg: "${gccScript}/bin/gcc -o ${cfg.out} ${cfg.src}";
+          compile = cfg: "${gccScript}/bin/gcc -o ${cfg.out} ${cfg.src}"; 
           name = "C";
           run = cfg: "exec ${cfg.out}";
+          };
         }
       ];
     };

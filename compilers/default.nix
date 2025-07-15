@@ -38,8 +38,11 @@ in {
       #haxe.traojudge
       #raku.traojudge
     ]
-    ++ java.traojudge.languages
-    ++ clang.traojudge.languages;
+    ++ java.traojudge.languages.main
+    ++ clang.traojudge.languages.main;
   #++ gcc.traojudge.languages;
   #++ gxx.traojudge.languages;
+  withTests = [
+    clang.traojudge
+  ];
 }
