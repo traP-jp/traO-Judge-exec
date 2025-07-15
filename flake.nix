@@ -58,23 +58,21 @@
     flake-utils.lib.eachDefaultSystem (system: let
       allpkgs = import ./allpkgs.nix {inherit flake-inputs system;};
       pkgs = allpkgs.default;
+      interpreters = import ./interpreters {inherit allpkgs;};
+      compilers = import ./compilers {inherit allpkgs;};
+      tools = import ./tools {inherit allpkgs;};
+      misc = import ./misc {inherit allpkgs;};
     in {
       packages = {
-        environment = let
-          interpreters = import ./interpreters {inherit allpkgs;};
-          compilers = import ./compilers {inherit allpkgs;};
-          tools = import ./tools {inherit allpkgs;};
-          misc = import ./misc {inherit allpkgs;};
-        in
-          pkgs.symlinkJoin {
-            name = "exec-container-enviroment";
-            paths = [
-              interpreters.all
-              compilers.all
-              tools.all
-              misc.all
-            ];
-          };
+        environment = pkgs.symlinkJoin {
+          name = "exec-container-enviroment";
+          paths = [
+            interpreters.all
+            compilers.all
+            tools.all
+            misc.all
+          ];
+        };
         default = pkgs.dockerTools.buildImage {
           name = "exec-container";
           copyToRoot = pkgs.symlinkJoin {
@@ -92,6 +90,20 @@
         };
         languageSettings = import ./languageSettings.nix {inherit pkgs allpkgs;};
 
+        test.all = let
+          withTestFlatten =
+            builtins.foldl' (
+              acc: x: acc ++ x.languages
+            ) []
+            compilers.withTests;
+        in
+          import ./utils/tester/default.nix {inherit pkgs;} withTestFlatten;
+        a =
+          builtins.foldl' (
+            acc: x: acc ++ x.languages
+          ) []
+          compilers.withTests;
+        /*
         test = let
           # gplusplus = import ./compiler/g++ {inherit pkgs;};
           language-test = import ./utils/tester {inherit pkgs;};
@@ -105,6 +117,7 @@
             stdin = "\n5";
             expected-stdout = "10";
           };
+        */
       };
 
       formatter = pkgs.alejandra;
