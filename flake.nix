@@ -98,26 +98,6 @@
             compilers.withTests;
         in
           import ./utils/tester/default.nix {inherit pkgs;} withTestFlatten;
-        a =
-          builtins.foldl' (
-            acc: x: acc ++ x.languages
-          ) []
-          compilers.withTests;
-        /*
-        test = let
-          # gplusplus = import ./compiler/g++ {inherit pkgs;};
-          language-test = import ./utils/tester {inherit pkgs;};
-        in
-          language-test {
-            language-name = "python3";
-            testcase-name = "test1";
-            compile-cmd = "cp $TRAOJUDGE_BUILD_SOURCE $TRAOJUDGE_BUILD_OUTPUT/main.py";
-            run-cmd = "${pkgs.python3}/bin/python3 $TRAOJUDGE_BUILD_OUTPUT/main.py";
-            source = "a = int(input())\nprint(a*2)";
-            stdin = "\n5";
-            expected-stdout = "10";
-          };
-        */
       };
 
       formatter = pkgs.alejandra;
