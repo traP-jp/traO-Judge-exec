@@ -108,9 +108,9 @@
         jq -n \
           --arg status "$STATUS" \
           --arg testname "${testcase-name}" \
-          --arg source "${source}" \
-          --arg stdin "${stdin}" \
-          --arg expected_stdout "${expected-stdout}" \
+          --rawfile source "$src/main" \
+          --rawfile stdin "${stdin-file}" \
+          --rawfile expected_stdout "${expected-stdout-file}" \
           --rawfile actual_stdout "$STDOUT_FILE" \
           '{
             status: $status,
