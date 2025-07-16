@@ -14,4 +14,4 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: cachix/install-nix-action@v31
-      - run: nix fmt && git diff --exit-code || (echo "Please run 'nix fmt' and commit the changes" && exit 1)
+      - run: nix fmt . && git diff --exit-code || (echo "Please run 'nix fmt' and commit the changes" && exit 1)
