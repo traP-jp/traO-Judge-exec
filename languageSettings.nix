@@ -3,7 +3,8 @@
   allpkgs,
 }: let
   interpreters = import ./interpreters {inherit allpkgs;};
-  compilers = import ./compilers {inherit allpkgs;};
+  # TODO; fix this
+  # compilers = import ./compilers {inherit allpkgs;};
 
   cfg = {
     src = "$TRAOJUDGE_BUILD_SOURCE";
@@ -16,7 +17,7 @@
       // {
         compile = lang.compile cfg;
         run = lang.run cfg;
-      }) (interpreters.traojudge ++ compilers.traojudge);
+      }) (interpreters.traojudge); # ++ compilers.traojudge);
   };
   jsonOutput = builtins.toJSON languagesArray;
   jsonFile = pkgs.writeText "languages.json" jsonOutput;

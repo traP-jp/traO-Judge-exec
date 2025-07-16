@@ -15,22 +15,21 @@
 in {
   all = [
     golang
-    brainfuck
+    brainfuck.bin
     rust
     koka
     mercury
     cobol
     haxe
     raku
-    java
-    gcc
-    gxx
-    clang
+    java.bin
+    gcc.bin
+    gxx.bin
+    clang.bin
   ];
   traojudge =
     [
       #golang.traojudge
-      brainfuck.traojudge
       #rust.traojudge
       #koka.traojudge
       #mercury.traojudge
@@ -38,11 +37,10 @@ in {
       #haxe.traojudge
       #raku.traojudge
     ]
-    ++ java.traojudge.languages.main
-    ++ clang.traojudge.languages.main;
+    ++ brainfuck.traojudge
+    ++ java.traojudge
+    ++ clang.traojudge;
   #++ gcc.traojudge.languages;
   #++ gxx.traojudge.languages;
-  withTests = [
-    clang.traojudge
-  ];
+  withTests = clang.traojudge;
 }
