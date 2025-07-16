@@ -32,7 +32,6 @@ in {
           stdin = "";
           stdout = builtins.readFile ./test1.stdout;
         };
-        /**/
         minimal = {
           source = builtins.readFile ./minimal.cpp;
           stdin = "";
