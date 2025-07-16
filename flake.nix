@@ -89,15 +89,15 @@
           };
         };
         languageSettings = import ./languageSettings.nix {inherit pkgs allpkgs;};
-
         test.all = let
-          withTestFlatten =
-            builtins.foldl' (
-              acc: x: acc ++ x.languages
-            ) []
+          withTestAll =
             compilers.withTests;
         in
-          import ./utils/tester/default.nix {inherit pkgs;} withTestFlatten;
+          pkgs.writeTextFile {
+            name = "test-all";
+            destination = "/output.json";
+            text = builtins.toJSON (import ./utils/tester/default.nix {inherit pkgs;} withTestAll);
+          };
       };
 
       formatter = pkgs.alejandra;
