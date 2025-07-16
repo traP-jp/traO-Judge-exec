@@ -159,6 +159,7 @@
     result = "Test result for ${language-name}:${testcase-name} could not be evaluated";
   };
 
+  # Returns test results for a language as nix expression.
   each-lang-test-result = {
     main,
     tests,
