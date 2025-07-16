@@ -11,17 +11,16 @@
     export CPLUS_INCLUDE_PATH="${myBoost.dev}/include:${myGmp.dev}/include:${myEigen}/include:${myAcLibrary.dev}/include:$CPLUS_INCLUDE_PATH"
     exec "${myGcc}/bin/g++" "$@" -lgmpxx -lgmp
   '';
-in
-  gxxScript
-  // {
-    traojudge = {
-      languages = [
-        {
-          binName = "g++";
-          compile = cfg: "${gxxScript}/bin/g++ -std=c++23 -o ${cfg.out} ${cfg.src}";
-          name = "C++(g++)";
-          run = cfg: "exec ${cfg.out}";
-        }
-      ];
-    };
-  }
+in {
+  bin = gxxScript;
+  traojudge = [
+    {
+      language = {
+        binName = "g++";
+        compile = cfg: "${gxxScript}/bin/g++ -std=c++23 -o ${cfg.out} ${cfg.src}";
+        name = "C++(g++)";
+        run = cfg: "exec ${cfg.out}";
+      };
+    }
+  ];
+}

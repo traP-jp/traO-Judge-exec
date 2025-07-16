@@ -58,23 +58,21 @@
     flake-utils.lib.eachDefaultSystem (system: let
       allpkgs = import ./allpkgs.nix {inherit flake-inputs system;};
       pkgs = allpkgs.default;
+      interpreters = import ./interpreters {inherit allpkgs;};
+      compilers = import ./compilers {inherit allpkgs;};
+      tools = import ./tools {inherit allpkgs;};
+      misc = import ./misc {inherit allpkgs;};
     in {
       packages = {
-        environment = let
-          interpreters = import ./interpreters {inherit allpkgs;};
-          compilers = import ./compilers {inherit allpkgs;};
-          tools = import ./tools {inherit allpkgs;};
-          misc = import ./misc {inherit allpkgs;};
-        in
-          pkgs.symlinkJoin {
-            name = "exec-container-enviroment";
-            paths = [
-              interpreters.all
-              compilers.all
-              tools.all
-              misc.all
-            ];
-          };
+        environment = pkgs.symlinkJoin {
+          name = "exec-container-enviroment";
+          paths = [
+            interpreters.all
+            compilers.all
+            tools.all
+            misc.all
+          ];
+        };
         default = pkgs.dockerTools.buildImage {
           name = "exec-container";
           copyToRoot = pkgs.symlinkJoin {
@@ -91,6 +89,15 @@
           };
         };
         languageSettings = import ./languageSettings.nix {inherit pkgs allpkgs;};
+        test-all = let
+          withTestAll =
+            compilers.withTests;
+        in
+          pkgs.writeTextFile {
+            name = "test-all";
+            destination = "/output.json";
+            text = builtins.toJSON (import ./utils/tester/default.nix {inherit pkgs;} withTestAll);
+          };
       };
 
       formatter = pkgs.alejandra;
