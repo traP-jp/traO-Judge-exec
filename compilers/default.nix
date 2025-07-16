@@ -6,6 +6,7 @@
   koka = import ./koka {inherit pkgs;};
   mercury = import ./mercury {inherit pkgs;};
   cobol = import ./cobol {inherit pkgs;};
+  haskell = import ./haskell {pkgs = allpkgs.release2411;};
   haxe = import ./haxe {inherit pkgs;};
   raku = import ./raku {pkgs = allpkgs.release2411;};
   java = import ./java {pkgs = allpkgs.release2411;};
@@ -20,6 +21,7 @@ in {
     koka
     mercury
     cobol
+    haskell
     haxe
     raku
     java
