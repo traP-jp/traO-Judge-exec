@@ -89,7 +89,7 @@
           };
         };
         languageSettings = import ./languageSettings.nix {inherit pkgs allpkgs;};
-        test.all = let
+        test-all = let
           withTestAll =
             compilers.withTests;
         in
