@@ -2,7 +2,7 @@
 
 ## Tasks
 
-Compatible with [xc](https://github.com/joerdav/xc).
+[![xc compatible](https://xcfile.dev/badge.svg)](https://xcfile.dev)
 
 ### Build
 
