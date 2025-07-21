@@ -1,4 +1,4 @@
-#!/root/.nix-profile/bin/bash
+#!/bin/sh
 
 # コンテナビルド
 if ! nix build --extra-experimental-features nix-command --extra-experimental-features flakes .#languageSettings
@@ -10,7 +10,7 @@ fi
 chmod u+w /result
 
 # ビルド結果をコピー
-realpath /workspace/result | xargs -I {} cp {} /result
+realpath /workspace/result | xargs -I {} cp {}/languages.json /result
 
 # 読み取り専用に戻す
 chmod u-w /result
