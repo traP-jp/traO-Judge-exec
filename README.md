@@ -8,13 +8,10 @@
 
 実行環境コンテナをビルド
 
-Environment: OUTPUT=result
-
 ```shell
-touch $OUTPUT
-docker build -t trao-exec .
+docker build -t trao-exec-builder docker/builder
 docker volume create trao-exec_build-cache
-docker run -v ./$OUTPUT:/result -v trao-exec_build-cache:/nix -v ./flake.lock:/workspace/flake.lock trao-exec
+docker run --rm -w /workspace -v trao-exec_build-cache:/nix -v .:/workspace --privileged trao-exec-builder docker/build.sh
 ```
 
 ### Load
@@ -32,30 +29,17 @@ docker load -i $INPUT
 依存パッケージのライセンスチェックを実行
 
 ```shell
-touch /tmp/result
-docker build -t trao-exec .
+docker build -t trao-exec-builder docker/builder
 docker volume create trao-exec_build-cache
-docker run -v /tmp/result:/result -v trao-exec_build-cache:/nix -v ./flake.lock:/workspace/flake.lock trao-exec /workspace/docker/license-check.sh
+docker run --rm -w /workspace -v trao-exec_build-cache:/nix -v .:/workspace --privileged trao-exec-builder docker/license-check.sh
 ```
 
 ### Lang
 
 言語情報ファイルを生成
 
-Environment: OUTPUT=languages.json
-
 ```shell
-touch $OUTPUT
-docker build -t trao-exec .
+docker build -t trao-exec-builder docker/builder
 docker volume create trao-exec_build-cache
-docker run -v ./$OUTPUT:/result -v trao-exec_build-cache:/nix -v ./flake.lock:/workspace/flake.lock trao-exec /workspace/docker/languageSettings.sh
-```
-
-### Shell
-
-`trao-exec`イメージのシェルを起動
-
-```shell
-touch /tmp/result
-docker run -it --rm -v /tmp/result:/result -v trao-exec_build-cache:/nix -v ./flake.lock:/workspace/flake.lock trao-exec /bin/sh
+docker run --rm -w /workspace -v trao-exec_build-cache:/nix -v .:/workspace --privileged trao-exec-builder docker/languageSettings.sh
 ```
