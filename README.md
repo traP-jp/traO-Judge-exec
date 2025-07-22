@@ -53,7 +53,7 @@ docker run -v ./$OUTPUT:/result -v trao-exec_build-cache:/nix -v ./flake.lock:/w
 
 ### Shell
 
-`trao-nix`イメージのシェルを起動
+`trao-exec`イメージのシェルを起動
 
 ```shell
 touch /tmp/result
