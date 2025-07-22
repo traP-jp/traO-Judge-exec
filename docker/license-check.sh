@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
 if type sbomnix &> /dev/null; then
     sbomnix .#environment
