@@ -1,0 +1,19 @@
+{
+    "name": "traO-Judge-exec Dev Container",
+    "dockerComposeFile": "./compose.yaml",
+    "service": "dev",
+    "workspaceFolder": "/workspace",
+    "features": {
+        "ghcr.io/devcontainers/features/common-utils:2": {
+            "installDirenv": true
+        }
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "pinage404.nix-extension-pack",
+                "xc-vscode.xc-vscode"
+            ]
+        }
+    }
+}
