@@ -12,7 +12,9 @@
         "vscode": {
             "extensions": [
                 "pinage404.nix-extension-pack",
-                "xc-vscode.xc-vscode"
+                "xc-vscode.xc-vscode",
+                "seatonjiang.gitmoji-vscode",
+                "donjayamanne.githistory"
             ]
         }
     }
