@@ -37,4 +37,8 @@ in
       inherit system;
       nixpkgs = nixpkgs-2411;
     };
+    release2505 = to-pkgs {
+      inherit system;
+      nixpkgs = nixpkgs-2505;
+    };
   }

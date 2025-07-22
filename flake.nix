@@ -3,6 +3,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nixpkgs-2405.url = "github:NixOS/nixpkgs/nixos-24.05";
     nixpkgs-2411.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs-2505.url = "github:NixOS/nixpkgs/nixos-25.05";
     flake-utils.url = "github:numtide/flake-utils";
     pyproject-nix = {
       url = "github:nix-community/pyproject.nix";
@@ -45,6 +46,7 @@
     nixpkgs,
     nixpkgs-2405,
     nixpkgs-2411,
+    nixpkgs-2505,
     flake-utils,
     uv2nix,
     pyproject-nix,
