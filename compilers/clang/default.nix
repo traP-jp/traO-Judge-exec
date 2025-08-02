@@ -13,6 +13,9 @@
   '';
   compileCmd = cfg:
     pkgs.writeShellScriptBin "compile-clang" ''
+      mkdir /tmp
+      mkdir -p ${cfg.temp}
+      mkdir -p ${cfg.out}
       ${pkgs.coreutils}/bin/cp ${cfg.src} ${cfg.temp}/main.cpp && \
       ${clangWrapper}/bin/clang++ -std=c++23 -o ${cfg.out}/main.out ${cfg.temp}/main.cpp
     '';
