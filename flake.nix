@@ -111,6 +111,9 @@
           copyToRoot = pkgs.symlinkJoin {
             name = "exec-container-enviroment-test";
             paths = [
+              (
+                import ./interpreters/python/3.12-traopy-util { inherit pkgs; }
+              )
               tools.all
               pkgs.bash
               (
