@@ -42,6 +42,7 @@ in {
     ++ brainfuck.traojudge
     ++ java.traojudge
     ++ clang.traojudge;
+  test.traojudge = clang.traojudge;
   #++ gcc.traojudge.languages;
   #++ gxx.traojudge.languages;
   withTests = clang.traojudge;

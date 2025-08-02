@@ -88,7 +88,9 @@
             ];
           };
         };
-        languageSettings = import ./languageSettings.nix {inherit pkgs allpkgs;};
+        languageSettings = import ./languageSettings.nix {inherit pkgs allpkgs; 
+          all-lang = interpreters;
+        };
         test-all = let
           withTestAll =
             compilers.withTests;
@@ -98,6 +100,33 @@
             destination = "/output.json";
             text = builtins.toJSON (import ./utils/tester/default.nix {inherit pkgs;} withTestAll);
           };
+
+        test-languageSettings = 
+                import ./languageSettings.nix {
+                  inherit pkgs allpkgs;
+                  all-lang = compilers.test;
+                };
+        test-image = pkgs.dockerTools.buildImage {
+          name = "exec-container";
+          copyToRoot = pkgs.symlinkJoin {
+            name = "exec-container-enviroment-test";
+            paths = [
+              tools.all
+              pkgs.bash
+              (
+                import ./languageSettings.nix {
+                  inherit pkgs allpkgs;
+                  all-lang = compilers.test;
+                }
+              )
+            ];
+          };
+          config = {
+            Env = [
+              "TRAOJUDGE_LANGUAGES_JSON=/languages.json"
+            ];
+          };
+        };
       };
 
       formatter = pkgs.alejandra;

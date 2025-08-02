@@ -1,8 +1,8 @@
 {
   pkgs,
   allpkgs,
+  all-lang,
 }: let
-  interpreters = import ./interpreters {inherit allpkgs;};
   # TODO; fix this
   # compilers = import ./compilers {inherit allpkgs;};
 
@@ -13,11 +13,11 @@
   };
   languagesArray = {
     languages = builtins.map (lang:
-      lang
+      lang.language
       // {
-        compile = lang.compile cfg;
-        run = lang.run cfg;
-      }) (interpreters.traojudge); # ++ compilers.traojudge);
+        compile = lang.language.compile cfg;
+        run = lang.language.run cfg;
+      }) (all-lang.traojudge); # ++ compilers.traojudge);
   };
   jsonOutput = builtins.toJSON languagesArray;
   jsonFile = pkgs.writeText "languages.json" jsonOutput;
